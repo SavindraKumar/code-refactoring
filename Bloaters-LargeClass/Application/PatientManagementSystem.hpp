@@ -5,30 +5,49 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "Patient.hpp"
-#include "AppointmentManager.hpp"
-#include "MedicalHistory.hpp"
-#include "Billing.hpp"
 
-class PatientManagementSystem
-{
+struct Appointment {
+    std::string date;
+    std::string doctor;
+};
+
+struct MedicalRecord {
+    std::string diagnosis;
+    std::string treatment;
+};
+
+class PatientManagementSystem {
 private:
-    Patient patient;
-    AppointmentManager appointmentManager;
-    MedicalHistory medicalHistory;
-    Billing billing;
+    std::string patientName;
+    int patientAge;
+    std::vector<Appointment> appointments;
+    std::vector<MedicalRecord> history;
+    bool hasInsurance;
+    double outstandingBill;
 
 public:
     PatientManagementSystem(const std::string& name, int age, bool insurance);
+
+    // Patient info
     void updatePatientInfo(const std::string& newName, int newAge);
+
+    // Appointments
     void scheduleAppointment(const std::string& date, const std::string& doctor);
     void printAppointments() const;
+
+    // Medical history
     void addMedicalRecord(const std::string& diagnosis, const std::string& treatment);
     void printMedicalHistory() const;
+
+    // Billing
     void addCharge(double amount);
     void payBill(double amount);
     double getOutstandingBill() const;
+
+    // Insurance
     void verifyInsurance() const;
+
+    // Report generation
     void generatePatientReport() const;
 };
 

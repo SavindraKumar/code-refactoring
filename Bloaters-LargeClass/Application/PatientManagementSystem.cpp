@@ -3,66 +3,67 @@
 
 // Constructor
 PatientManagementSystem::PatientManagementSystem(const std::string& name, int age, bool insurance)
-    : patient(name, age, insurance) {}
+    : patientName(name), patientAge(age), hasInsurance(insurance), outstandingBill(0.0) {}
 
 // Patient info
-void PatientManagementSystem::updatePatientInfo(const std::string& newName, int newAge)
-{
-    patient.updateInfo(newName, newAge);
+void PatientManagementSystem::updatePatientInfo(const std::string& newName, int newAge) {
+    patientName = newName;
+    patientAge = newAge;
 }
 
 // Appointments
-void PatientManagementSystem::scheduleAppointment(const std::string& date, const std::string& doctor)
-{
-    appointmentManager.schedule(date, doctor);
+void PatientManagementSystem::scheduleAppointment(const std::string& date, const std::string& doctor) {
+    appointments.push_back({date, doctor});
 }
 
-void PatientManagementSystem::printAppointments() const
-{
-    appointmentManager.print(patient.getName());
+void PatientManagementSystem::printAppointments() const {
+    std::cout << "Appointments for " << patientName << ":\n";
+    for (const auto& appt : appointments) {
+        std::cout << " - " << appt.date << " with Dr. " << appt.doctor << "\n";
+    }
 }
 
 // Medical history
-void PatientManagementSystem::addMedicalRecord(const std::string& diagnosis, const std::string& treatment)
-{
-    medicalHistory.add(diagnosis, treatment);
+void PatientManagementSystem::addMedicalRecord(const std::string& diagnosis, const std::string& treatment) {
+    history.push_back({diagnosis, treatment});
 }
 
-void PatientManagementSystem::printMedicalHistory() const
-{
-    medicalHistory.print(patient.getName());
+void PatientManagementSystem::printMedicalHistory() const {
+    std::cout << "Medical history for " << patientName << ":\n";
+    for (const auto& rec : history) {
+        std::cout << " - " << rec.diagnosis << " treated with " << rec.treatment << "\n";
+    }
 }
 
 // Billing
-void PatientManagementSystem::addCharge(double amount)
-{
-    billing.addCharge(amount);
+void PatientManagementSystem::addCharge(double amount) {
+    outstandingBill += amount;
 }
 
-void PatientManagementSystem::payBill(double amount)
-{
-    billing.pay(amount);
+void PatientManagementSystem::payBill(double amount) {
+    outstandingBill -= amount;
 }
 
-double PatientManagementSystem::getOutstandingBill() const
-{
-    return billing.getOutstanding();
+double PatientManagementSystem::getOutstandingBill() const {
+    return outstandingBill;
 }
 
 // Insurance
-void PatientManagementSystem::verifyInsurance() const
-{
-    patient.verifyInsurance();
+void PatientManagementSystem::verifyInsurance() const {
+    if (hasInsurance) {
+        std::cout << "Insurance verified for " << patientName << "\n";
+    } else {
+        std::cout << patientName << " has no insurance.\n";
+    }
 }
 
 // Report generation
-void PatientManagementSystem::generatePatientReport() const
-{
-    std::ofstream file(patient.getName() + "_report.txt");
-    file << "Patient: " << patient.getName() << "\n";
-    file << "Age: " << patient.getAge() << "\n";
-    file << "Outstanding Bill: $" << billing.getOutstanding() << "\n";
-    file << "Appointments: " << appointmentManager.count() << "\n";
-    file << "Medical Records: " << medicalHistory.count() << "\n";
+void PatientManagementSystem::generatePatientReport() const {
+    std::ofstream file(patientName + "_report.txt");
+    file << "Patient: " << patientName << "\n";
+    file << "Age: " << patientAge << "\n";
+    file << "Outstanding Bill: $" << outstandingBill << "\n";
+    file << "Appointments: " << appointments.size() << "\n";
+    file << "Medical Records: " << history.size() << "\n";
     file.close();
 }

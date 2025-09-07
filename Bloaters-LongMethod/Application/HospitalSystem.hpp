@@ -21,13 +21,6 @@ class HospitalSystem
 public:
     void processPatientRecord(Patient& patient);
 
-private:
-    void validatePatientData(const Patient& patient);
-    void assignDiagnosis(Patient& patient);
-    void prescribeMedication(Patient& patient);
-    void calculateBilling(Patient& patient);
-    void saveToDatabase(const Patient& patient);
-    void printReport(const Patient& patient);
 };
 
 #endif /* APPLICATION_HOSPITALSYSTEM_HPP_ */
