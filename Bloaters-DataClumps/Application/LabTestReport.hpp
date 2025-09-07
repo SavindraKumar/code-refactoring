@@ -3,7 +3,8 @@
 
 #include <string>
 
-class LabTestReport {
+class LabTestReport
+{
 private:
     std::string patientName;
     int patientAge;
