@@ -1,4 +1,4 @@
-#include "Patient.hpp"
+#include "../Application/Patient.hpp"
 
 int main() {
     Address addr = {"123 Main St", "Apt 4B", "New York", "10001"};

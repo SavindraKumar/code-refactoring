@@ -17,28 +17,25 @@ struct Insurance {
     std::string insuranceId;
 };
 
-class Patient {
-private:
+struct PatientInfo {
     std::string firstName;
     std::string lastName;
     int age;
     std::string gender;
-    Address address;
     std::string phone;
     std::string email;
+};
+
+class Patient {
+private:
+    PatientInfo info;
+    Address address;
     Insurance insurance;
 
 public:
-    // Cleaner constructor
-    Patient(const std::string& firstName,
-            const std::string& lastName,
-            int age,
-            const std::string& gender,
+    Patient(const PatientInfo& info,
             const Address& address,
-            const std::string& phone,
-            const std::string& email,
             const Insurance& insurance);
-
     void printInfo() const;
 };
 

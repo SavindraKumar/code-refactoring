@@ -1,4 +1,4 @@
-#include "Patient.hpp"
+#include "../Application/Patient.hpp"
 
 Patient::Patient(const std::string& firstName,
                  const std::string& lastName,
@@ -27,4 +27,3 @@ void Patient::printInfo() const {
         std::cout << "No insurance.\n";
     }
 }
-
